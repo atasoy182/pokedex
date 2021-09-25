@@ -1,35 +1,32 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as typeActions from "../../redux/actions/typeActions";
 
-class TypesList extends Component {
-  componentDidMount() {
-    this.props.actions.getTypes();
-    console.log("this.props.types:", this.props.types);
-  }
+const TypesList = (props) => {
+  useEffect(() => {
+    props.actions.getTypes();
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <h1>TYPES</h1>
-        <h5>CurrentType : {this.props.currentType.typeName}</h5>
-        {this.props.isLoading ? (
-          <h1>YUKLENİYOR</h1>
-        ) : (
-          <ListGroup>
-            {this.props.types.map((type, index) => (
-              <ListGroupItem key={index}>{type.name}</ListGroupItem>
-            ))}
-          </ListGroup>
-        )}
+  return (
+    <div>
+      <h1>TYPES</h1>
+      <h5>CurrentType : {props.currentType.typeName}</h5>
+      {props.isLoading ? (
+        <h1>YUKLENİYOR</h1>
+      ) : (
+        <ListGroup>
+          {props.types.map((type, index) => (
+            <ListGroupItem key={index}>{type.name}</ListGroupItem>
+          ))}
+        </ListGroup>
+      )}
 
-        <h5>{this.props.types.length}</h5>
-      </div>
-    );
-  }
-}
+      <h5>{props.types.length}</h5>
+    </div>
+  );
+};
 
 function mapStateToPops(state) {
   return {
