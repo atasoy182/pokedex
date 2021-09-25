@@ -18,11 +18,15 @@ export function getTypesStart() {
 
 export function getTypes() {
   return function (dispatch) {
+    const createIdForResult = (result) => {
+      result.map((item, index) => item['id'] = index);
+      return result;
+    }
     dispatch(getTypesStart())
     let url = "https://pokeapi.co/api/v2/type";
     return fetch(url)
       .then((response) => response.json())
-      .then((result) => dispatch(getTypesSuccess(result.results)))
+      .then((result) => dispatch(getTypesSuccess(createIdForResult(result.results))))
       .catch((error) => dispatch(getTypesError(error)));
   };
 }

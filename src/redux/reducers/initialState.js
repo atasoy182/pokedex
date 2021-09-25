@@ -1,5 +1,5 @@
 export default {
-    currentType : {typeName : "Grass"},
+    currentType : {},
     types : {
         isLoading : false,
         allTypes : [],
