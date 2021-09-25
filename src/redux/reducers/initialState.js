@@ -4,5 +4,10 @@ export default {
         isLoading : false,
         allTypes : [],
         message : ""
+    },
+    pokemons : {
+        isLoading : false,
+        allPokemons : [],
+        message : ""
     }
 }
