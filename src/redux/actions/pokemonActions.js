@@ -14,43 +14,23 @@ export function getPokemonsStart() {
 
 export function getPokemons() {
   return function (dispatch) {
-    //   const createIdForResult = (result) => {
-    //     result.map((item, index) => item['id'] = index);
-    //     return result;
-    //   }
-    console.log("BASLA")
     const getPokeDetail = (pokemons) => {
       let data = [];
-      pokemons.forEach(pokemon => {
+      pokemons.forEach((pokemon, index) => {
         fetch(pokemon.url)
         .then((response) => response.json())
-        .then(function (pokeData) {
-          
-         // data[]
+        .then((pokeData) => {
          data.push({
            'id' : pokeData.id,
            'name' : pokeData.name,
            'types' : pokeData.types.map(type => type.type.name),
            'imageUrl' : pokeData.sprites.other.dream_world.front_default
          })
-         //console.log(pokeData.types.forEach(item))
-        // pokeData.types.forEach(el => console.log(el.type.name))
-        //  console.log({
-        //   'id' : pokeData.id,
-        //   'name' : pokeData.name,
-        //   'types' : pokeData.types.map(type => type.name)
-        // });
+         if(index === pokemons.length - 1 ){
+          dispatch(getPokemonsSuccess(data))
+         }
         });
       });
-      dispatch(getPokemonsSuccess(data))
-      
-      // fetch(url)
-      //   .then((response) => response.json())
-      //   .then(function (pokeData) {
-      //     console.log(pokeData);
-      //   });
-
-      
     };
     dispatch(getPokemonsStart());
     let url = "https://pokeapi.co/api/v2/pokemon?limit=100";
