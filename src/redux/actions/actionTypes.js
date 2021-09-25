@@ -1,0 +1,5 @@
+export const CHANGE_TYPE = "CHANGE_TYPE";
+export const GET_TYPES_SUCCESS = "GET_TYPES_SUCCESS";
+export const GET_TYPES_ERROR = "GET_TYPES_ERROR";
+export const GET_TYPES_START = "GET_TYPES_START";
+
