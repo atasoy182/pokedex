@@ -30,7 +30,7 @@ const TypesList = (props) => {
 
   const getBody = () => {
     return (
-      <ListGroup>
+      <ListGroup flush>
         {props.types.map((type, index) => (
           <ListGroupItem
             active={type.id === props.currentType.id}

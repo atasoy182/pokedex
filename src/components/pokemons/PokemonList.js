@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Badge, Container, Table, Spinner, Col } from "reactstrap";
+import { Badge, Container, Spinner } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as pokemonActions from "../../redux/actions/pokemonActions";
 import { PaginationElement } from "../pagination/Pagination";
+import { PokemonCard } from "../pokemonCard/PokemonCard";
 
 const PokemonList = (props) => {
+  const [imageLoading, setImageLoading] = useState(true);
   const pokemonsPerPage = 15;
 
   useEffect(() => {
@@ -22,35 +24,18 @@ const PokemonList = (props) => {
 
   const getBody = () => {
     return (
-      <Col>
-        <Table striped>
-          <thead>
-            <tr>
-              <th>NAME</th>
-              <th>TYPES</th>
-              <th>IMAGE</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.pokemons.map((poke) => (
-              <tr key={poke.id}>
-                <th>
-                  <img width={50} src={poke.imageUrl} alt="new" />
-                </th>
-                <th>{poke.name}</th>
-                <th>{poke.types.toString()}</th>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Col>
+      <div className="card-columns">
+        {props.pokemons.map((poke) => (
+          <PokemonCard poke={poke} />
+        ))}
+      </div>
     );
   };
 
   return (
     <Container>
       <h1>
-        <Badge color="warning">POKEMON LIST</Badge>
+        <Badge color="warning"> POKEMON LIST </Badge>
         <Badge color="success">{props.currentType.name}</Badge>
       </h1>
 
