@@ -12,31 +12,49 @@ export function getPokemonsStart() {
   return { type: actionTypes.GET_POKEMONS_START };
 }
 
-export function getPokemons() {
+export function getPokemonsCount(count) {
+  return { type: actionTypes.GET_POKEMONS_COUNT, payload: count };
+}
+
+export function getPokemons(offset, limit) {
   return function (dispatch) {
+    let data = [];
     const getPokeDetail = (pokemons) => {
-      let data = [];
-      pokemons.forEach((pokemon, index) => {
-        fetch(pokemon.url)
-        .then((response) => response.json())
-        .then((pokeData) => {
-         data.push({
-           'id' : pokeData.id,
-           'name' : pokeData.name,
-           'types' : pokeData.types.map(type => type.type.name),
-           'imageUrl' : pokeData.sprites.other.dream_world.front_default
-         })
-         if(index === pokemons.length - 1 ){
-          dispatch(getPokemonsSuccess(data))
-         }
+      let requests = pokemons.map((pokemon, index) => {
+        return new Promise((resolve) => {
+          fetch(pokemon.url)
+            .then((response) => response.json())
+            .then((pokeData) => {
+              data.push({
+                id: pokeData.id,
+                name: pokeData.name,
+                types: pokeData.types.map((type) => type.type.name),
+                imageUrl:
+                  pokeData.sprites.other.dream_world.front_default ||
+                  pokeData.sprites.other["official-artwork"].front_default,
+              });
+              resolve();
+            });
         });
       });
+      Promise.all(requests).then(() =>
+        dispatch(getPokemonsSuccess(data.sort((a, b) => a.id - b.id)))
+      );
     };
     dispatch(getPokemonsStart());
-    let url = "https://pokeapi.co/api/v2/pokemon?limit=100";
+    let url =
+      "https://pokeapi.co/api/v2/pokemon?offset=" +
+      offset.toString() +
+      "&limit=" +
+      limit.toString();
+
+    console.log(url);
     return fetch(url)
       .then((response) => response.json())
-      .then((result) => getPokeDetail(result.results))
+      .then((result) => {
+        dispatch(getPokemonsCount(result.count));
+        return getPokeDetail(result.results);
+      })
       .catch((error) => dispatch(getPokemonsError(error)));
   };
 }
