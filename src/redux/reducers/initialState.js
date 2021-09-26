@@ -1,5 +1,7 @@
 export default {
-    currentType : {},
+    currentType : {
+        name : "All"
+    },
     types : {
         isLoading : false,
         allTypes : [],

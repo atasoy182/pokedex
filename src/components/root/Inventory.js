@@ -8,10 +8,10 @@ export default class Inventory extends Component {
     return (
       <div>
         <Row>
-          <Col xs="3">
+          <Col xs="2">
             <TypesList></TypesList>
           </Col>
-          <Col xs="9">
+          <Col xs="10">
             <PokemonList></PokemonList>
           </Col>
         </Row>

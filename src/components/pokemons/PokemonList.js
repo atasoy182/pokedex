@@ -5,10 +5,11 @@ import { bindActionCreators } from "redux";
 import * as pokemonActions from "../../redux/actions/pokemonActions";
 import { PaginationElement } from "../pagination/Pagination";
 import { PokemonCard } from "../pokemonCard/PokemonCard";
+import { SearchBar } from "../search/SearchBar";
 
 const PokemonList = (props) => {
-  const [imageLoading, setImageLoading] = useState(true);
-  const pokemonsPerPage = 15;
+  const [searchText, setSearchText] = useState("");
+  const pokemonsPerPage = 50;
 
   useEffect(() => {
     props.actions.getPokemons(0, pokemonsPerPage);
@@ -25,11 +26,19 @@ const PokemonList = (props) => {
   const getBody = () => {
     return (
       <div className="card-columns">
-        {props.pokemons.map((poke) => (
-          <PokemonCard poke={poke} />
+        {props.pokemons.map((poke, index) => (
+          <PokemonCard
+            key={index}
+            poke={poke}
+            filter={{ currentType: props.currentType, searchText: searchText }}
+          />
         ))}
       </div>
     );
+  };
+
+  const handleOnChangeText = (value) => {
+    setSearchText(value);
   };
 
   return (
@@ -38,6 +47,8 @@ const PokemonList = (props) => {
         <Badge color="warning"> POKEMON LIST </Badge>
         <Badge color="success">{props.currentType.name}</Badge>
       </h1>
+
+      <SearchBar onChange={(value) => handleOnChangeText(value)} />
 
       {props.isLoading ? getSpinner() : getBody()}
 

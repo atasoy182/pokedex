@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 
 export function getPokemonsSuccess(pokemons) {
+  console.log("PAYLOAD:", pokemons);
   return { type: actionTypes.GET_POKEMONS_SUCCESS, payload: pokemons };
 }
 
@@ -31,7 +32,8 @@ export function getPokemons(offset, limit) {
                 types: pokeData.types.map((type) => type.type.name),
                 imageUrl:
                   pokeData.sprites.other.dream_world.front_default ||
-                  pokeData.sprites.other["official-artwork"].front_default,
+                  pokeData.sprites.other["official-artwork"].front_default ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfjuWMzNmPYRxOegksXlPtPaiB-4w093AnFg&usqp=CAU",
               });
               resolve();
             });
@@ -48,7 +50,7 @@ export function getPokemons(offset, limit) {
       "&limit=" +
       limit.toString();
 
-    console.log(url);
+    console.log("URL REQUEST:", url);
     return fetch(url)
       .then((response) => response.json())
       .then((result) => {
