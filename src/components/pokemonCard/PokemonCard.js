@@ -1,4 +1,4 @@
-import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 
 export const PokemonCard = (props) => {
   const typeUrl = "https://veekun.com/dex/media/types/en/";
@@ -40,6 +40,7 @@ export const PokemonCard = (props) => {
                 );
               })}
             </CardText>
+          <Button color = "success" onClick = {()=> {props.cached()}}>CATCH</Button>
           </CardBody>
         </Card>
       </div>

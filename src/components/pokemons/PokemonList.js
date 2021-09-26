@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import { Badge, Container, Spinner } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as pokemonActions from "../../redux/actions/pokemonActions";
+import * as inventoryActions from "../../redux/actions/inventoryActions";
 import { PaginationElement } from "../pagination/Pagination";
 import { PokemonCard } from "../pokemonCard/PokemonCard";
 import { SearchBar } from "../search/SearchBar";
+import alertify from "alertifyjs"
 
 const PokemonList = (props) => {
   const [searchText, setSearchText] = useState("");
@@ -23,6 +25,12 @@ const PokemonList = (props) => {
     return <Spinner color="primary" />;
   };
 
+  const cachedHandler = (pokemon) => {
+    console.log(pokemon)
+    props.actions.addToInventory({quantity : 1, pokemon : pokemon});
+    alertify.success(pokemon.name + " catched")
+  };
+
   const getBody = () => {
     return (
       <div className="card-columns">
@@ -31,6 +39,7 @@ const PokemonList = (props) => {
             key={index}
             poke={poke}
             filter={{ currentType: props.currentType, searchText: searchText }}
+            cached={() => cachedHandler(poke)}
           />
         ))}
       </div>
@@ -73,6 +82,10 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getPokemons: bindActionCreators(pokemonActions.getPokemons, dispatch),
+      addToInventory: bindActionCreators(
+        inventoryActions.addToInventory,
+        dispatch
+      ),
     },
   };
 }

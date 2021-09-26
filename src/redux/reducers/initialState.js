@@ -11,5 +11,6 @@ export default {
         isLoading : false,
         allPokemons : [],
         message : ""
-    }
+    },
+    inventory : []
 }

@@ -2,17 +2,12 @@ import React, { useState } from "react";
 import {
   Collapse,
   Navbar,
-  NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   NavbarText,
 } from "reactstrap";
+import CatchedPokemons from "../catchedPokemons/CatchedPokemons";
 import Toggle from "../toggle/Toggler";
 
 const Navi = (props) => {
@@ -29,17 +24,7 @@ const Navi = (props) => {
                 <h5>GitHub</h5>
               </NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-              <h5>Options</h5>
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <CatchedPokemons/>
           </Nav>
           <NavbarText>
             <Toggle theme={props.themeMode} toggleTheme={props.toggleTheme} />

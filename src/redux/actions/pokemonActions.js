@@ -1,7 +1,6 @@
 import * as actionTypes from "./actionTypes";
 
 export function getPokemonsSuccess(pokemons) {
-  console.log("PAYLOAD:", pokemons);
   return { type: actionTypes.GET_POKEMONS_SUCCESS, payload: pokemons };
 }
 
