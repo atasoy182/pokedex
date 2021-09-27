@@ -50,7 +50,6 @@ export function getPokemons(offset, limit) {
       "&limit=" +
       limit.toString();
 
-    console.log("URL REQUEST:", url);
     return fetch(url)
       .then((response) => response.json())
       .then((result) => {

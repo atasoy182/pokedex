@@ -81,9 +81,7 @@ export function getPokemon(id) {
     return fetch(url)
       .then((response) => response.json())
       .then((result) => getPokemonSpecies(result, dispatch))
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 }
 
@@ -93,7 +91,6 @@ export function getPokemonsFamily(family) {
     let requests = family.map((child, index) => {
       return new Promise((resolve) => {
         let url = "https://pokeapi.co/api/v2/pokemon/" + child;
-        console.log(url);
         fetch(url)
           .then((response) => response.json())
           .then((pokeData) => {
