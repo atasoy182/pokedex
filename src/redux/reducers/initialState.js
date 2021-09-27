@@ -13,5 +13,6 @@ export default {
         message : ""
     },
     inventory : [],
-    pokemon : {}
+    pokemon : {},
+    favs : [],
 }

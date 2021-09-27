@@ -3,3 +3,4 @@ export const imageNotFound = "https://encrypted-tbn0.gstatic.com/images?q=tbn:AN
 export const pokeBall = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/770px-Pok%C3%A9_Ball_icon.svg.png";
 export const favorutesUrl = "https://icon-library.com/images/favorite-icon/favorite-icon-14.jpg";
 export const detailUrl = "https://img.icons8.com/office/452/details-pane.png";
+export const heartIcon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/2166px-Heart_icon_red_hollow.svg.png";

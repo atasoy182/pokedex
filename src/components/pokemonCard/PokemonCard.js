@@ -1,10 +1,16 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
-import { detailUrl, favorutesUrl, pokeBall, typeUrl } from "../common/Common";
+import {
+  favorutesUrl,
+  heartIcon,
+  pokeBall,
+  typeUrl,
+} from "../common/Common";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as inventoryActions from "../../redux/actions/inventoryActions";
+import * as favActions from "../../redux/actions/favActions";
 import alertify from "alertifyjs";
 
 const PokemonCard = (props) => {
@@ -19,6 +25,19 @@ const PokemonCard = (props) => {
     alertify.success(poke.name + " catched");
   };
 
+  const favHandler = (poke) => {
+    let showSuccessAlert = true;
+    if (props.fav.find((pokemon) => pokemon.id === poke.id)) {
+      showSuccessAlert = false;
+    }
+    props.actions.addOrRemoveFav(poke);
+    if (showSuccessAlert) {
+      alertify.success(poke.name + " added to favorites");
+    } else {
+      alertify.error(poke.name + " removed from favorites");
+    }
+  };
+
   if (
     (props.filter.currentType.name === "All" ||
       props.poke.types.includes(props.filter.currentType.name.toLowerCase())) &&
@@ -29,6 +48,11 @@ const PokemonCard = (props) => {
       <div class="text-center">
         <Card className="Regular shadow">
           <div>
+            <div>
+              {props.fav.find((pokemon) => pokemon.id === props.poke.id) ? (
+                <img alt="..." src={favorutesUrl} width={50} />
+              ) : null}
+            </div>
             <Button
               color=".btn-primary-outline"
               onClick={() => {
@@ -75,10 +99,10 @@ const PokemonCard = (props) => {
             <Button
               color=".btn-primary-outline"
               onClick={() => {
-                handleOnClick();
+                favHandler(props.poke);
               }}
             >
-              <img alt="..." src={favorutesUrl} width={50} />
+              <img alt="..." src={heartIcon} width={50} />
             </Button>
           </CardBody>
         </Card>
@@ -89,7 +113,11 @@ const PokemonCard = (props) => {
   return null;
 };
 
-function mapStateToPops(state) {}
+function mapStateToPops(state, ownProps) {
+  return {
+    fav: state.favReducer,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -98,6 +126,7 @@ function mapDispatchToProps(dispatch) {
         inventoryActions.addToInventory,
         dispatch
       ),
+      addOrRemoveFav: bindActionCreators(favActions.addOrRemoveFav, dispatch),
     },
   };
 }

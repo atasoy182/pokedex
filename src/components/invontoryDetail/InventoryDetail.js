@@ -21,12 +21,15 @@ const InventoryDetail = (props) => {
               poke={poke.pokemon}
               filter={{ currentType: { name: "All" }, searchText: "" }}
             />
+            <div class="d-flex justify-content-center">
             <Button
               color="danger"
               onClick={() => removeFromInventory(poke.pokemon)}
             >
-              Remove
+              Release
             </Button>
+              <span>Quantity: {poke.quantity}</span>
+            </div>
             <p></p>
           </Col>
         ))}

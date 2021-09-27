@@ -11,13 +11,12 @@ import {
 import { bindActionCreators } from "redux";
 import * as inventoryActions from "../../redux/actions/inventoryActions";
 import { Link } from "react-router-dom";
-import alertify from "alertifyjs";
 
 const CatchedPokemons = (props) => {
   const renderEmpty = () => {
     return (
       <NavItem>
-        <NavLink><span className = "effect">Empty</span></NavLink>
+        <NavLink><span className = "effect">Inventory Empty</span></NavLink>
       </NavItem>
     );
   };

@@ -1,9 +1,5 @@
 import {
   Container,
-  Card,
-  CardBody,
-  CardTitle,
-  CardText,
   Row,
   Col,
 } from "reactstrap";
@@ -11,7 +7,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import React, { useEffect } from "react";
 import * as pokemonDetailActions from "../../redux/actions/pokemonDetailActions";
-import { imageNotFound, typeUrl } from "../common/Common";
+import * as favActions from "../../redux/actions/favActions";
+import { favorutesUrl, imageNotFound, typeUrl } from "../common/Common";
+import alertify from "alertifyjs";
 
 const PokemonDetail = (props) => {
   useEffect(() => {
@@ -34,6 +32,21 @@ const PokemonDetail = (props) => {
     }
     return "black";
   };
+
+  const favHandler = () => {
+
+      let showSuccessAlert = true;
+
+      if(props.fav.find(pokemon => pokemon.id === props.pokemon.id)){
+        showSuccessAlert = false;
+      }
+      props.actions.addOrRemoveFav(props.pokemon);
+      if(showSuccessAlert){
+        alertify.success(props.pokemon.name + " added to favorites");
+      }else{
+        alertify.error(props.pokemon.name + " removed from favorites");
+      }
+    }
 
   const getFamily = () => {
     if(props.pokemon.family){
@@ -102,6 +115,11 @@ const PokemonDetail = (props) => {
             <h1 className="display-4" style={{ color: getPokemonColor() }}>
               {props.pokemon.name[0].toUpperCase() +
                 props.pokemon.name.slice(1).toLowerCase()}
+
+              {
+                props.fav.find(pokemon => pokemon.id === props.pokemon.id) ? <img onClick = {()=> {favHandler();}} alt="..." src={favorutesUrl} width={50} /> : null
+              }
+
             </h1>
             <p>
               {props.pokemon.types.map((type) => {
@@ -143,6 +161,10 @@ function mapDispatchToProps(dispatch) {
     actions: {
       getPokemon: bindActionCreators(pokemonDetailActions.getPokemon, dispatch),
       clearPokemon :  bindActionCreators(pokemonDetailActions.clearPokemon, dispatch),
+      addOrRemoveFav: bindActionCreators(
+        favActions.addOrRemoveFav,
+        dispatch
+      ),
     },
   };
 }
@@ -152,6 +174,7 @@ function mapStateToProps(state, ownProps) {
   return {
     pokemon: state.pokemonDetailReducer,
     id: pokemon_id,
+    fav: state.favReducer,
   };
 }
 
