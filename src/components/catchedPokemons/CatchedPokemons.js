@@ -10,6 +10,8 @@ import {
 } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as inventoryActions from "../../redux/actions/inventoryActions";
+import { Link } from "react-router-dom";
+import alertify from "alertifyjs";
 
 const CatchedPokemons = (props) => {
   const renderEmpty = () => {
@@ -20,11 +22,15 @@ const CatchedPokemons = (props) => {
     );
   };
 
+  const removeFromInventory = (pokemon) => {
+    props.actions.removeFromInventory(pokemon);
+  };
+
   const renderInventory = () => {
     return (
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
-          <h5>Inventory</h5>
+          <span>Inventory</span>
         </DropdownToggle>
         <DropdownMenu right>
           {props.inventory.map((item) => (
@@ -33,7 +39,7 @@ const CatchedPokemons = (props) => {
               <Badge
                 color="danger"
                 onClick={() => {
-                  props.actions.removeFromInventory(item.pokemon);
+                  removeFromInventory(item.pokemon);
                 }}
               >
                 {"X"}
@@ -41,6 +47,11 @@ const CatchedPokemons = (props) => {
               {item.pokemon.name} <Badge color="success">{item.quantity}</Badge>
             </DropdownItem>
           ))}
+          <DropdownItem divider />
+          <DropdownItem>
+            {" "}
+            <Link to={"/inventory"}>Inventory</Link>
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     );

@@ -12,5 +12,6 @@ export default {
         allPokemons : [],
         message : ""
     },
-    inventory : []
+    inventory : [],
+    pokemon : {}
 }

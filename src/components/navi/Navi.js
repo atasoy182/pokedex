@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import CatchedPokemons from "../catchedPokemons/CatchedPokemons";
 import Toggle from "../toggle/Toggler";
+import {Link} from "react-router-dom";
 
 const Navi = (props) => {
   return (
@@ -17,12 +18,7 @@ const Navi = (props) => {
         <Collapse navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/components/"><h5>Components</h5></NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                <h5>GitHub</h5>
-              </NavLink>
+              <NavLink><Link to = {"/"}><h5>Find</h5></Link></NavLink>
             </NavItem>
             <CatchedPokemons/>
           </Nav>

@@ -1,7 +1,21 @@
+import React, {useCallback} from 'react';
+import {useHistory} from 'react-router-dom';
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import { pokeBall, typeUrl } from "../common/Common";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as inventoryActions from "../../redux/actions/inventoryActions";
+import alertify from 'alertifyjs';
 
-export const PokemonCard = (props) => {
-  const typeUrl = "https://veekun.com/dex/media/types/en/";
+const PokemonCard = (props) => {
+  const history = useHistory();
+  const handleOnClick = useCallback(() => history.push('/' + props.poke.id), [history]);
+
+  const catchedHandler = (poke) => {
+    props.actions.addToInventory({quantity : 1, pokemon : poke});
+    alertify.success(poke.name + " catched")
+  }
+
   if (
     (props.filter.currentType.name === "All" ||
       props.poke.types.includes(props.filter.currentType.name.toLowerCase())) &&
@@ -40,7 +54,7 @@ export const PokemonCard = (props) => {
                 );
               })}
             </CardText>
-          <Button color = "success" onClick = {()=> {props.cached()}}>CATCH</Button>
+          <Button color = ".btn-primary-outline" onClick = {()=> {catchedHandler(props.poke)}} ><img alt = "..." src = {pokeBall} width={50}/></Button>
           </CardBody>
         </Card>
       </div>
@@ -49,3 +63,21 @@ export const PokemonCard = (props) => {
 
   return null;
 };
+
+
+function mapStateToPops(state) {
+
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      addToInventory: bindActionCreators(
+        inventoryActions.addToInventory,
+        dispatch
+      ),
+    },
+  };
+}
+
+export default connect(mapStateToPops, mapDispatchToProps)(PokemonCard);

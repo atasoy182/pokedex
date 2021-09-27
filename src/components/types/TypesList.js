@@ -46,9 +46,6 @@ const TypesList = (props) => {
 
   return (
     <Container>
-      <h1>
-        <Badge color="warning">TYPES</Badge>
-      </h1>
       {props.isLoading ? getSpinner() : getBody()}
     </Container>
   );

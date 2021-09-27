@@ -1,4 +1,6 @@
+import { imageNotFound } from "../../components/common/Common";
 import * as actionTypes from "./actionTypes";
+
 
 export function getPokemonsSuccess(pokemons) {
   return { type: actionTypes.GET_POKEMONS_SUCCESS, payload: pokemons };
@@ -32,7 +34,7 @@ export function getPokemons(offset, limit) {
                 imageUrl:
                   pokeData.sprites.other.dream_world.front_default ||
                   pokeData.sprites.other["official-artwork"].front_default ||
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfjuWMzNmPYRxOegksXlPtPaiB-4w093AnFg&usqp=CAU",
+                  imageNotFound,
               });
               resolve();
             });
