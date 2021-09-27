@@ -22,12 +22,12 @@ const InventoryDetail = (props) => {
               filter={{ currentType: { name: "All" }, searchText: "" }}
             />
             <div class="d-flex justify-content-center">
-            <Button
-              color="danger"
-              onClick={() => removeFromInventory(poke.pokemon)}
-            >
-              Release
-            </Button>
+              <Button
+                color="danger"
+                onClick={() => removeFromInventory(poke.pokemon)}
+              >
+                Release
+              </Button>
               <span>Quantity: {poke.quantity}</span>
             </div>
             <p></p>

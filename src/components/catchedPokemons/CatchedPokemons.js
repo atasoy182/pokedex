@@ -16,7 +16,9 @@ const CatchedPokemons = (props) => {
   const renderEmpty = () => {
     return (
       <NavItem>
-        <NavLink><span className = "effect">Inventory Empty</span></NavLink>
+        <NavLink>
+          <span className="effect">Inventory Empty</span>
+        </NavLink>
       </NavItem>
     );
   };
@@ -29,7 +31,7 @@ const CatchedPokemons = (props) => {
     return (
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
-          <span className = "effect">Inventory</span>
+          <span className="effect">Inventory</span>
         </DropdownToggle>
         <DropdownMenu right>
           {props.inventory.map((item) => (

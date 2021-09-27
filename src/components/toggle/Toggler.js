@@ -6,8 +6,8 @@ import { HiMoon } from "react-icons/hi";
 
 const Toggle = ({ theme, toggleTheme }) => {
   return (
-    <Row style={{padding : 5}}>
-     <CgSun size={20} style={{marginRight : 5}}/>
+    <Row style={{ padding: 5 }}>
+      <CgSun size={20} style={{ marginRight: 5 }} />
       <CustomInput
         bsSize="lg"
         onChange={toggleTheme}

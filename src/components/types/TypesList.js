@@ -5,7 +5,6 @@ import {
   ListGroupItem,
   Spinner,
   Row,
-  Badge,
   Container,
 } from "reactstrap";
 import { bindActionCreators } from "redux";
@@ -37,18 +36,14 @@ const TypesList = (props) => {
             key={index}
             onClick={() => selectType(type)}
           >
-          <span style = {{"color" : "black"}}>{type.name}</span>
+            <span style={{ color: "black" }}>{type.name}</span>
           </ListGroupItem>
         ))}
       </ListGroup>
     );
   };
 
-  return (
-    <Container>
-      {props.isLoading ? getSpinner() : getBody()}
-    </Container>
-  );
+  return <Container>{props.isLoading ? getSpinner() : getBody()}</Container>;
 };
 
 function mapStateToPops(state) {

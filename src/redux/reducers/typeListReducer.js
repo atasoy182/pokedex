@@ -4,7 +4,7 @@ import initialState from "./initialState";
 export default function typeListReducer(state = initialState.types, action) {
   switch (action.type) {
     case actionTypes.GET_TYPES_START:
-      return { ...state, isLoading: true, message : "" };
+      return { ...state, isLoading: true, message: "" };
     case actionTypes.GET_TYPES_SUCCESS:
       return { ...state, allTypes: action.payload, isLoading: false };
     case actionTypes.GET_TYPES_ERROR:

@@ -13,20 +13,19 @@ export function getPokemon(id) {
   const getFamilyFromChain = (chain, dispatch) => {
     const familyArr = [];
     if (Object.keys(chain.species).length > 0) {
-
-      var arr = chain.species.url.split("/")
+      var arr = chain.species.url.split("/");
       familyArr.push(arr[arr.length - 2]);
     }
     if (Object.keys(chain.evolves_to).length > 0) {
       chain.evolves_to.forEach((item) => {
         if (item.species) {
-          var arr = item.species.url.split("/")
+          var arr = item.species.url.split("/");
           familyArr.push(arr[arr.length - 2]);
         }
         if (Object.keys(item.evolves_to).length > 0) {
           item.evolves_to.forEach((item2) => {
             if (item2.species) {
-              var arr = item2.species.url.split("/")
+              var arr = item2.species.url.split("/");
               familyArr.push(arr[arr.length - 2]);
             }
           });
@@ -47,7 +46,10 @@ export function getPokemon(id) {
     return fetch(url)
       .then((response) => response.json())
       .then((result) => {
-        pokemon["details"]["evelotions"] = getFamilyFromChain(result.chain, dispatch);
+        pokemon["details"]["evelotions"] = getFamilyFromChain(
+          result.chain,
+          dispatch
+        );
         return dispatch(getPokemonSuccess(pokemon));
       })
       .catch((error) => {
@@ -91,7 +93,7 @@ export function getPokemonsFamily(family) {
     let requests = family.map((child, index) => {
       return new Promise((resolve) => {
         let url = "https://pokeapi.co/api/v2/pokemon/" + child;
-        console.log(url)
+        console.log(url);
         fetch(url)
           .then((response) => response.json())
           .then((pokeData) => {
@@ -114,6 +116,6 @@ export function getPokemonsFamily(family) {
   };
 }
 
-export function clearPokemon(){
+export function clearPokemon() {
   return { type: actionTypes.GET_POKEMON_CLEAR };
 }

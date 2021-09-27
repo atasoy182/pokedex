@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Badge, Container, Spinner } from "reactstrap";
+import { Container, Spinner } from "reactstrap";
 import { bindActionCreators } from "redux";
 import * as pokemonActions from "../../redux/actions/pokemonActions";
 import * as inventoryActions from "../../redux/actions/inventoryActions";

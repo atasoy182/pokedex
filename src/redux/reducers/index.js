@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   pokemonListReducer,
   inventoryReducer,
   pokemonDetailReducer,
-  favReducer
+  favReducer,
 });
 
 export default rootReducer;

@@ -9,9 +9,9 @@ export default function pokemonDetailReducer(
     case actionTypes.GET_POKEMON_SUCCESS:
       return { ...state, ...action.payload };
     case actionTypes.GET_POKEMON_FAMILY_SUCCESS:
-        return { ...state, ...{'family' : action.payload} };
+      return { ...state, ...{ family: action.payload } };
     case actionTypes.GET_POKEMON_CLEAR:
-      return {}
+      return {};
     default:
       return state;
   }

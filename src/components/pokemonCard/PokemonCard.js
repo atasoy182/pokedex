@@ -1,12 +1,7 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
-import {
-  favorutesUrl,
-  heartIcon,
-  pokeBall,
-  typeUrl,
-} from "../common/Common";
+import { favorutesUrl, heartIcon, pokeBall, typeUrl } from "../common/Common";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as inventoryActions from "../../redux/actions/inventoryActions";

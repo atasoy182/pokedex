@@ -1,4 +1,4 @@
-import { createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   h5, th, td, body, div, .effect {
@@ -26,6 +26,4 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.chipBackground};
   };
 
-  `
-
-  
+  `;

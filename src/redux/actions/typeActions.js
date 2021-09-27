@@ -21,7 +21,8 @@ export function getTypes() {
     const createIdForResult = (result) => {
       result.map((item, index) => {
         item["id"] = index;
-        item["name"] = item["name"][0].toUpperCase() + item["name"].slice(1).toLowerCase();
+        item["name"] =
+          item["name"][0].toUpperCase() + item["name"].slice(1).toLowerCase();
       });
       result.unshift({ name: "All" });
       return result;

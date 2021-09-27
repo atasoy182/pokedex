@@ -1,8 +1,4 @@
-import {
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import React, { useEffect } from "react";
@@ -15,8 +11,8 @@ const PokemonDetail = (props) => {
   useEffect(() => {
     props.actions.getPokemon(props.id);
     return () => {
-     props.actions.clearPokemon();
-    }
+      props.actions.clearPokemon();
+    };
   }, []);
 
   const getFlavorText = () => {
@@ -34,22 +30,21 @@ const PokemonDetail = (props) => {
   };
 
   const favHandler = () => {
+    let showSuccessAlert = true;
 
-      let showSuccessAlert = true;
-
-      if(props.fav.find(pokemon => pokemon.id === props.pokemon.id)){
-        showSuccessAlert = false;
-      }
-      props.actions.addOrRemoveFav(props.pokemon);
-      if(showSuccessAlert){
-        alertify.success(props.pokemon.name + " added to favorites");
-      }else{
-        alertify.error(props.pokemon.name + " removed from favorites");
-      }
+    if (props.fav.find((pokemon) => pokemon.id === props.pokemon.id)) {
+      showSuccessAlert = false;
     }
+    props.actions.addOrRemoveFav(props.pokemon);
+    if (showSuccessAlert) {
+      alertify.success(props.pokemon.name + " added to favorites");
+    } else {
+      alertify.error(props.pokemon.name + " removed from favorites");
+    }
+  };
 
   const getFamily = () => {
-    if(props.pokemon.family){
+    if (props.pokemon.family) {
       return (
         <div class="text-center">
           <p></p>
@@ -57,23 +52,22 @@ const PokemonDetail = (props) => {
             <b>FAMILY</b>
           </h4>
           <div class="d-flex justify-content-center">
-            {
-              props.pokemon.family.length > 0 ? props.pokemon.family.map((item) => (
-                <img
-                  height="70"
-                  src={item.imageUrl}
-                  alt="..."
-                  class="rounded mx-auto d-block"
-                  style={{ "object-fit": "contain" }}
-                />
-              )) : null
-            }
+            {props.pokemon.family.length > 0
+              ? props.pokemon.family.map((item) => (
+                  <img
+                    height="70"
+                    src={item.imageUrl}
+                    alt="..."
+                    class="rounded mx-auto d-block"
+                    style={{ "object-fit": "contain" }}
+                  />
+                ))
+              : null}
           </div>
         </div>
       );
     }
     return null;
-    
   };
 
   const getBody = () => {
@@ -116,10 +110,16 @@ const PokemonDetail = (props) => {
               {props.pokemon.name[0].toUpperCase() +
                 props.pokemon.name.slice(1).toLowerCase()}
 
-              {
-                props.fav.find(pokemon => pokemon.id === props.pokemon.id) ? <img onClick = {()=> {favHandler();}} alt="..." src={favorutesUrl} width={50} /> : null
-              }
-
+              {props.fav.find((pokemon) => pokemon.id === props.pokemon.id) ? (
+                <img
+                  onClick={() => {
+                    favHandler();
+                  }}
+                  alt="..."
+                  src={favorutesUrl}
+                  width={50}
+                />
+              ) : null}
             </h1>
             <p>
               {props.pokemon.types.map((type) => {
@@ -160,11 +160,11 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getPokemon: bindActionCreators(pokemonDetailActions.getPokemon, dispatch),
-      clearPokemon :  bindActionCreators(pokemonDetailActions.clearPokemon, dispatch),
-      addOrRemoveFav: bindActionCreators(
-        favActions.addOrRemoveFav,
+      clearPokemon: bindActionCreators(
+        pokemonDetailActions.clearPokemon,
         dispatch
       ),
+      addOrRemoveFav: bindActionCreators(favActions.addOrRemoveFav, dispatch),
     },
   };
 }

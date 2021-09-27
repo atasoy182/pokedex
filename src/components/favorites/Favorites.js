@@ -16,36 +16,34 @@ const Fovorites = (props) => {
   const renderEmpty = () => {
     return (
       <NavItem>
-        <NavLink><span className = "effect">Fav Empty</span></NavLink>
+        <NavLink>
+          <span className="effect">Fav Empty</span>
+        </NavLink>
       </NavItem>
     );
   };
 
-  const removeFromFav= (pokemon) => {
-
-
+  const removeFromFav = (pokemon) => {
     let showSuccessAlert = true;
-    if(props.fav.find(poke => poke.id === pokemon.id)){
+    if (props.fav.find((poke) => poke.id === pokemon.id)) {
       showSuccessAlert = false;
     }
     props.actions.addOrRemoveFav(pokemon);
-    if(showSuccessAlert){
+    if (showSuccessAlert) {
       alertify.success(pokemon.name + " added to favorites");
-    }else{
+    } else {
       alertify.error(pokemon.name + " removed from favorites");
     }
-
-    
   };
 
   const renderInventory = () => {
     return (
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
-          <span className = "effect">Favorites</span>
+          <span className="effect">Favorites</span>
         </DropdownToggle>
         <DropdownMenu right>
-        {props.fav.map((item) => (
+          {props.fav.map((item) => (
             <DropdownItem>
               {" "}
               <Badge
@@ -64,18 +62,13 @@ const Fovorites = (props) => {
     );
   };
 
-  return (
-    <div>{props.fav.length > 0 ? renderInventory() : renderEmpty()}</div>
-  );
+  return <div>{props.fav.length > 0 ? renderInventory() : renderEmpty()}</div>;
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-        addOrRemoveFav: bindActionCreators(
-        favActions.addOrRemoveFav,
-        dispatch
-      ),
+      addOrRemoveFav: bindActionCreators(favActions.addOrRemoveFav, dispatch),
     },
   };
 }

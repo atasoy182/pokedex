@@ -1,7 +1,6 @@
 import { imageNotFound } from "../../components/common/Common";
 import * as actionTypes from "./actionTypes";
 
-
 export function getPokemonsSuccess(pokemons) {
   return { type: actionTypes.GET_POKEMONS_SUCCESS, payload: pokemons };
 }
