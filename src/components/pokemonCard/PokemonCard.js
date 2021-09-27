@@ -11,7 +11,7 @@ import alertify from "alertifyjs";
 const PokemonCard = (props) => {
   const history = useHistory();
   const handleOnClick = useCallback(
-    () => history.push("/" + props.poke.id),
+    () => history.push("/pokemon/" + props.poke.id),
     [history]
   );
 

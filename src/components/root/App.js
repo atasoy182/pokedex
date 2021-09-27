@@ -22,7 +22,9 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Inventory} />
           <Route path="/inventory" exact component={InventoryDetail} />
-          <Route path="/:pokemon_id" exact component={PokemonDetail} />
+          <Route path="/pokedex-app" exact component={Inventory} />
+          <Route path="/pokemon/:pokemon_id" exact component={PokemonDetail} />
+          <Route component={Inventory} />
         </Switch>
       </Container>
     </ThemeProvider>
