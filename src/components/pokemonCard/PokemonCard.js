@@ -1,20 +1,23 @@
-import React, {useCallback} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
-import { pokeBall, typeUrl } from "../common/Common";
+import { detailUrl, favorutesUrl, pokeBall, typeUrl } from "../common/Common";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as inventoryActions from "../../redux/actions/inventoryActions";
-import alertify from 'alertifyjs';
+import alertify from "alertifyjs";
 
 const PokemonCard = (props) => {
   const history = useHistory();
-  const handleOnClick = useCallback(() => history.push('/' + props.poke.id), [history]);
+  const handleOnClick = useCallback(
+    () => history.push("/" + props.poke.id),
+    [history]
+  );
 
   const catchedHandler = (poke) => {
-    props.actions.addToInventory({quantity : 1, pokemon : poke});
-    alertify.success(poke.name + " catched")
-  }
+    props.actions.addToInventory({ quantity: 1, pokemon: poke });
+    alertify.success(poke.name + " catched");
+  };
 
   if (
     (props.filter.currentType.name === "All" ||
@@ -26,14 +29,21 @@ const PokemonCard = (props) => {
       <div class="text-center">
         <Card className="Regular shadow">
           <div>
-            <img
-              width={150}
-              height={150}
-              src={props.poke.imageUrl}
-              alt="..."
-              class="rounded mx-auto d-block"
-              style={{ "object-fit": "contain" }}
-            />
+            <Button
+              color=".btn-primary-outline"
+              onClick={() => {
+                handleOnClick();
+              }}
+            >
+              <img
+                width={150}
+                height={150}
+                src={props.poke.imageUrl}
+                alt="..."
+                class="rounded mx-auto d-block"
+                style={{ "object-fit": "contain" }}
+              />
+            </Button>
           </div>
           <CardBody>
             <CardTitle>
@@ -54,7 +64,22 @@ const PokemonCard = (props) => {
                 );
               })}
             </CardText>
-          <Button color = ".btn-primary-outline" onClick = {()=> {catchedHandler(props.poke)}} ><img alt = "..." src = {pokeBall} width={50}/></Button>
+            <Button
+              color=".btn-primary-outline"
+              onClick={() => {
+                catchedHandler(props.poke);
+              }}
+            >
+              <img alt="..." src={pokeBall} width={50} />
+            </Button>
+            <Button
+              color=".btn-primary-outline"
+              onClick={() => {
+                handleOnClick();
+              }}
+            >
+              <img alt="..." src={favorutesUrl} width={50} />
+            </Button>
           </CardBody>
         </Card>
       </div>
@@ -64,10 +89,7 @@ const PokemonCard = (props) => {
   return null;
 };
 
-
-function mapStateToPops(state) {
-
-}
+function mapStateToPops(state) {}
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -37,7 +37,7 @@ const TypesList = (props) => {
             key={index}
             onClick={() => selectType(type)}
           >
-            {type.name}
+          <span style = {{"color" : "black"}}>{type.name}</span>
           </ListGroupItem>
         ))}
       </ListGroup>
